@@ -7,11 +7,13 @@ import { CryptoService } from './services/crypto.service';
 
 // Components
 import { AppComponent } from './app.component';
+import { CryptoTableComponent } from './components/crypto-table/crypto-table.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    CryptoTableComponent
   ],
   imports: [
     BrowserModule,

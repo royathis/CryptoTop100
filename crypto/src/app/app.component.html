@@ -8,5 +8,8 @@
   Market Cap: <span class="btcBlue font-weight-bold" [innerHTML]="bitcoinMarketCap.total_market_cap_usd | currency"></span> |   
   24h Vol. <span class="btcBlue font-weight-bold" [innerHTML]="bitcoinMarketCap.total_24h_volume_usd | currency"></span> | 
   BTC Dominance: <span class="btcBlue font-weight-bold" [innerHTML]="bitcoinMarketCap.bitcoin_percentage_of_market_cap * .01 | percent:'1.1-2'"></span></h4>
+  <hr class="text-white">
+  <app-crypto-table></app-crypto-table>
   
 </div>
+
