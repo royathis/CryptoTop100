@@ -14,4 +14,8 @@ export class CryptoService {
     return this.http.get('https://api.coinmarketcap.com/v1/ticker/');
   }
 
+  public getBitCoinPriceStats() {
+    return this.http.get('https://cors-anywhere.herokuapp.com/https://api.blockchain.info/charts/market-price?format=json&lang=en');
+  }
+
 }

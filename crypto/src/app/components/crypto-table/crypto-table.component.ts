@@ -11,7 +11,9 @@ import { CryptoService } from './../../services/crypto.service';
 export class CryptoTableComponent implements OnInit {
 
   public top100Cryptos: CryptoCurrency[];
+  public filteredCryptos: CryptoCurrency[];
   public sortValues: any = { rank: false, marketCap: true, volume: false, change24: false, price: false, name: false };
+  public priceUnit: string = 'USD';
 
   constructor(public cryptoService: CryptoService) { 
     this.getTop100Cryptos();
@@ -27,7 +29,18 @@ export class CryptoTableComponent implements OnInit {
         return new CryptoCurrency(element);
       });
       //console.log(this.top100Cryptos);
+      this.filteredCryptos = this.top100Cryptos;
     });
+  }
+
+  public listenFilterCryptos(e: CryptoCurrency[]){
+    //console.log(e);
+    this.filteredCryptos = e;
+  }
+
+  public listenPriceUnit(e: string){
+    this.priceUnit = e;
+    console.log(this.priceUnit);
   }
 
   public sortString(sortValue: boolean): void {
