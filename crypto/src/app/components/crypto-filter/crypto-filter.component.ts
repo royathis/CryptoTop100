@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { CryptoCurrency } from './../../models/crypto-currency.class';
+import { CryptoCurrency } from './../../models';
 
 
 @Component({

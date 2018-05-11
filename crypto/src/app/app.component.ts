@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CryptoService } from './services/crypto.service';
 
-import { BitcoinMarket } from './models/bitcoin-market.class';
+import { BitcoinMarket } from './models';
 
 
 

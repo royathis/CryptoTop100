@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CryptoCurrency } from './../../models/crypto-currency.class';
+import { CryptoCurrency } from './../../models';
 import { CryptoService } from './../../services/crypto.service';
 
 
