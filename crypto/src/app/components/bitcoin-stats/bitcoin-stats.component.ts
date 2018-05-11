@@ -20,9 +20,9 @@ export class BitcoinStatsComponent implements OnInit {
   public chartData: any;
 
   constructor(public cryptoService: CryptoService) { 
-    this.cryptoService.getBitCoinPriceStats().subscribe((data: any) => {
+    this.cryptoService.getBitCoinPriceStats().subscribe((data: BitcoinPrice) => {
       // console.log(data);
-      this.bitcoinStats = new BitcoinPrice(data);
+      this.bitcoinStats = data;
       this.prices = this.convertPrices();
       // console.log(this.prices);
       this.dates = this.convertDates();

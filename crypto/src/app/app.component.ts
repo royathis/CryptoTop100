@@ -1,3 +1,4 @@
+
 import { Component } from '@angular/core';
 import { CryptoService } from './services/crypto.service';
 
@@ -18,9 +19,9 @@ export class AppComponent {
   }
 
   public getBitcoinStats(): void {
-    this.cryptoService.getBitcoinmarketCap().subscribe((data: any) => {
-      this.bitcoinMarketCap = new BitcoinMarket(data); 
-      console.log(this.bitcoinMarketCap);           
+    this.cryptoService.getBitcoinmarketCap().subscribe((data: BitcoinMarket) => {
+      this.bitcoinMarketCap = data; 
+      // console.log(this.bitcoinMarketCap);           
     });
   }
  
