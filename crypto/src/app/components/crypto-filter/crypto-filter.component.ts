@@ -12,7 +12,7 @@ export class CryptoFilterComponent implements OnInit {
   @Input() public cryptos: CryptoCurrency[];
   @Output() public filteredCryptosEvent = new EventEmitter<CryptoCurrency[]>();
   @Output() public priceUnitEvent = new EventEmitter<string>();
-  public filteredCryptos: CryptoCurrency[];
+  public filteredCryptos: CryptoCurrency[] = [];
   public percentChange: string = 'All';
   public showAmount: number = 100;
   public priceUnit: string = 'USD';

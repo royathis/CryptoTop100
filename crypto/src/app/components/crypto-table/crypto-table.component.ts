@@ -1,6 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { CryptoCurrency } from './../../models';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+
+import { Subscription } from 'rxjs/Subscription';
+
+import { sortValues } from './../../models/datasets/';
+import { CryptoCurrency, SortValues } from './../../models';
 import { CryptoService } from './../../services/crypto.service';
+
 
 
 @Component({
@@ -8,33 +13,34 @@ import { CryptoService } from './../../services/crypto.service';
   templateUrl: './crypto-table.component.html',
   styleUrls: ['./crypto-table.component.css']
 })
-export class CryptoTableComponent implements OnInit {
+export class CryptoTableComponent implements OnInit, OnDestroy {
 
   public top100Cryptos: CryptoCurrency[];
   public filteredCryptos: CryptoCurrency[];
-  public sortValues: any = { rank: false, marketCap: true, volume: false, change24: false, price: false, name: false };
+  public sortValues: SortValues = sortValues;
   public priceUnit: string = 'USD';
+  public topp100CryptosSub: Subscription;
 
-  constructor(public cryptoService: CryptoService) { 
-    this.getTop100Cryptos();
+  constructor(public cryptoService: CryptoService) {     
   }
 
   ngOnInit() {
+    this.getTop100Cryptos();
+  }
+
+  ngOnDestroy(){
+    this.topp100CryptosSub.unsubscribe();
   }
 
   public getTop100Cryptos(): void {
-    this.cryptoService.getAllCryptos().subscribe((data: any) => {
+    this.topp100CryptosSub = this.cryptoService.getAllCryptos().subscribe((data: CryptoCurrency[]) => {
       //console.log(data);
-      this.top100Cryptos = data.map((element: any) => {
-        return new CryptoCurrency(element);
-      });
-      //console.log(this.top100Cryptos);
+      this.top100Cryptos = data;
       this.filteredCryptos = this.top100Cryptos;
     });
   }
 
-  public listenFilterCryptos(e: CryptoCurrency[]){
-    //console.log(e);
+  public listenFilterCryptos(e: CryptoCurrency[]){    
     this.filteredCryptos = e;
   }
 

@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 
-import { BitcoinMarket, BitcoinPrice } from './../models';
+import { BitcoinMarket, BitcoinPrice, CryptoCurrency } from './../models';
 
 @Injectable()
 export class CryptoService {
@@ -18,8 +18,12 @@ export class CryptoService {
     });
   }
 
-  public getAllCryptos(){
-    return this.http.get('https://api.coinmarketcap.com/v1/ticker/');
+  public getAllCryptos(): Observable <CryptoCurrency[]> {
+    return this.http.get('https://api.coinmarketcap.com/v1/ticker/').map((data: any) => {
+      return data.map((crypto: any) => {
+        return new CryptoCurrency(crypto);
+      });
+    });
   }
 
   public getBitCoinPriceStats(): Observable <BitcoinPrice> {

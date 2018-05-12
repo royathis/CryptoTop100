@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
+
 import { CryptoService } from './../../services/crypto.service';
 import { BitcoinPrice, PriceCoordinates } from './../../models';
-
 
 
 
@@ -10,23 +11,28 @@ import { BitcoinPrice, PriceCoordinates } from './../../models';
   templateUrl: './bitcoin-stats.component.html',
   styleUrls: ['./bitcoin-stats.component.css']
 })
-export class BitcoinStatsComponent implements OnInit {
+export class BitcoinStatsComponent implements OnInit, OnDestroy {
 
   public bitcoinStats: BitcoinPrice = new BitcoinPrice();
+  public bitcoinPriceStatsSub: Subscription;
   public prices: number[];
   public dates: string[];
   public options: any;
-  //public type: any;
   public chartData: any;
 
   constructor(public cryptoService: CryptoService) { 
-    this.cryptoService.getBitCoinPriceStats().subscribe((data: BitcoinPrice) => {
-      // console.log(data);
+  }
+
+
+
+  ngOnInit() {
+    
+    this.bitcoinPriceStatsSub = this.cryptoService.getBitCoinPriceStats().subscribe((data: BitcoinPrice) => {
+      
       this.bitcoinStats = data;
-      this.prices = this.convertPrices();
-      // console.log(this.prices);
+      this.prices = this.convertPrices();      
       this.dates = this.convertDates();
-      // console.log(this.dates);
+      
 
 
       // https://github.com/emn178/angular2-chartjs
@@ -64,13 +70,14 @@ export class BitcoinStatsComponent implements OnInit {
         responsive: true,
         maintainAspectRatio: false
       };
-
-      
-
-
-
     });
   }
+
+  ngOnDestroy(){
+    this.bitcoinPriceStatsSub.unsubscribe();
+  }
+
+
 
   public convertDates(): string[] {
     const dates = this.bitcoinStats.values.map((coordinates: PriceCoordinates) => {
@@ -91,7 +98,5 @@ export class BitcoinStatsComponent implements OnInit {
   }
 
   
-  ngOnInit() {
-  }
 
 }
